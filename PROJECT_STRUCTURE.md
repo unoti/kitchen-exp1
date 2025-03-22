@@ -16,7 +16,8 @@ YesChef/
 │       ├── App.tsx           # Main app component
 │       └── index.tsx         # Entry point for the React app
 ├── backend/                  # Node.js backend server
-│   ├── package.json          # Backend dependencies and scripts
+│   ├── package.json          # Backend dependencies and scripts (npm install here produces backend/node_modules/)
+│   ├── node_modules/         # Dependencies installed for the backend (not in source control)
 │   └── src/                  # Backend source code
 │       ├── index.ts          # Entry point to the backend
 │       └── game/             # Game logic and state management
