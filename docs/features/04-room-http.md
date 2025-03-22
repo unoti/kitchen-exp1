@@ -42,3 +42,6 @@
    Optionally update internal docs or README files with API details if needed.
 
 This milestone focuses solely on the backend REST endpoints for room management, excluding authentication and real-time gameplay. The goal is to achieve a working prototype for room creation and player joining in about an hour of focused development.
+
+
+* [Troubleshooting with Claude](https://claude.ai/share/cc840936-5ac0-493e-8e8b-f2e08af058d7)
