@@ -1,17 +1,15 @@
 import { Room } from "../../../shared/models";
 
-export interface RoomProvider {
+export interface IRoomProvider {
   getActiveRooms(): Room[];
   addRoom(room: Room): void;
 }
 
-export class HardCodedRoomProvider implements RoomProvider {
+export class RoomProvider implements IRoomProvider {
   private rooms: Room[];
 
   constructor() {
-    this.rooms = [
-      { id: 'room1', name: 'Test Room', players: [] }
-    ];
+    this.rooms = [];
   }
 
   getActiveRooms(): Room[] {
