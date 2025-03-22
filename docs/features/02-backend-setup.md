@@ -8,6 +8,7 @@ on the backend and give us a firm foundation to build upon.
 ## Success Criteria
 * Backend and its initial dependencies are installed
 * We can run unit tests on the backend
+* Test dependencies such as **Supertest** are installed and configured for HTTP endpoint testing
 * We can run the server (even though it does nothing or nearly nothing initially)
 * README and other associated documentation updated on how to install and run the server.
 
