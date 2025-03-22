@@ -21,9 +21,9 @@ describe('Room Endpoints', () => {
 
   it('POST /rooms/join should add a player to an existing room', async () => {
     const player1 = { id: 'p1', name: 'Alice' };
-    await request('http://localhost:3000').post('/rooms/join').send({ player: player1 });
+    await request(app).post('/rooms/join').send({ player: player1 });
     const player2 = { id: 'p2', name: 'Bob' };
-    const response = await request('http://localhost:3000').post('/rooms/join').send({ player: player2 });
+    const response = await request(app).post('/rooms/join').send({ player: player2 });
     expect(response.status).toBe(200);
     expect(response.body.players).toContainEqual(player2);
   });
