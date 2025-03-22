@@ -1,5 +1,5 @@
 import React from 'react';
-import LandingPage from './components/LandingPage.tsx';
+import LandingPage from './components/LandingPage';
 import { FluentProvider, webLightTheme } from '@fluentui/react-components';
 
 const App: React.FC = () => {
