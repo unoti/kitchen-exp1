@@ -13,6 +13,9 @@ This document outlines our approach to defining and enforcing contracts within o
 - **Enhanced Testability:**  
   With clear contracts in place, unit tests can easily substitute mock implementations for dependencies, ensuring that business logic remains isolated from infrastructure concerns.
 
+- **Additional Flexibility:**  
+  This separation of contracts not only boosts testability but also provides flexibility in how our system ingests inputs. For example, the same contract can be used in scenarios ranging from processing real-time WebSocket events and batch file operations to replaying structured logs captured from production. This multi-faceted approach allows us to adapt to various data sources and usage scenarios without changing our core business logic.
+
 By following these guidelines, we create a maintainable, robust system where contracts are both enforced and easily understandable.
 
 ## Example Implementation
