@@ -100,6 +100,8 @@ To run backend tests, run:
 npm --prefix backend test
 ```
 
+> **Note:** Make sure you are executing this command from the repository's root directory.
+
 ## Contributing
 
 Guidelines for contributing to the project.
