@@ -1,7 +1,7 @@
 import request from 'supertest';
 import express from 'express';
 
-import { HardCodedRoomProvider } from '../src/dataproviders/roomProvider';
+import { RoomProvider } from '../src/dataproviders/roomProvider';
 
 const app = express();
 app.get('/', (req, res) => {
@@ -9,9 +9,12 @@ app.get('/', (req, res) => {
 });
 
 describe('Room Provider', () => {
-  it("HardCodedRoomProvider returns at least one room", () => {
-    const provider = new HardCodedRoomProvider();
-    expect(provider.getActiveRooms().length).toBeGreaterThan(0);
+  it("RoomProvider starts empty and adds a room", () => {
+    const provider = new RoomProvider();
+    expect(provider.getActiveRooms().length).toBe(0);
+    const testRoom = { id: 'test1', name: 'Test Room', players: [] };
+    provider.addRoom(testRoom);
+    expect(provider.getActiveRooms().length).toBe(1);
   });
 });
 
