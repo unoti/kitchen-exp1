@@ -14,3 +14,39 @@ This document outlines our approach to defining and enforcing contracts within o
   With clear contracts in place, unit tests can easily substitute mock implementations for dependencies, ensuring that business logic remains isolated from infrastructure concerns.
 
 By following these guidelines, we create a maintainable, robust system where contracts are both enforced and easily understandable.
+
+## Example Implementation
+
+Below is an example of a contract for a RoomProvider:
+
+```typescript
+export interface RoomProvider {
+  getActiveRooms(): Room[];
+  addRoom(room: Room): void;
+}
+
+export interface Room {
+  id: string;
+  name: string;
+  players: Player[];
+}
+
+export interface Player {
+  id: string;
+  name: string;
+}
+
+export class InMemoryRoomProvider implements RoomProvider {
+  private rooms: Room[] = [];
+
+  getActiveRooms(): Room[] {
+    return this.rooms;
+  }
+
+  addRoom(room: Room): void {
+    this.rooms.push(room);
+  }
+}
+```
+
+This example demonstrates how we use TypeScript interfaces along with class-based implementations to define clear contracts.
