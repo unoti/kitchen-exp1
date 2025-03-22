@@ -1,4 +1,5 @@
 import express from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { RoomProvider } from './dataproviders/roomProvider';
 
 const app = express();
@@ -9,13 +10,13 @@ app.use(express.json());
 const roomProvider = new RoomProvider();
 
 // GET /rooms - Returns a list of active rooms
-app.get('/rooms', (req, res, next) => {
+app.get('/rooms', (req: Request, res: Response, next: NextFunction) => {
   res.json(roomProvider.getActiveRooms());
 });
 
 // POST /rooms/join - Adds a player to a room.
 // If no room exists, it creates a new room with a default name.
-app.post('/rooms/join', (req, res, next) => {
+app.post('/rooms/join', (req: Request, res: Response, next: NextFunction) => {
   const { player } = req.body;
   if (!player) {
     return res.status(400).json({ error: 'Missing player information' });
