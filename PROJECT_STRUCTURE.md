@@ -7,7 +7,7 @@ YesChef/
 ├── frontend/                 # React frontend application
 │   ├── package.json          # Frontend dependencies and scripts (npm install here produces frontend/node_modules/)
 │   ├── package-lock.json     # Automatically generated lockfile for frontend dependencies
-│   ├── node_modules/         # Dependencies installed for the frontend
+│   ├── node_modules/         # Dependencies installed for the frontend (not in source control)
 │   ├── public/               # Public assets (index.html, images, etc.)
 │   └── src/                  # React components and application code
 │       ├── components/       # Reusable components

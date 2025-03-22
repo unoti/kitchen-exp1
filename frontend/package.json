@@ -6,6 +6,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@fluentui/react": "^8.0.0",
+    "@fluentui/react-components": "^9.61.2",
+    "@fluentui/react-theme": "^9.1.24",
     "react-scripts": "5.0.1"
   },
   "devDependencies": {
