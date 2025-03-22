@@ -1,11 +1,12 @@
 import request from 'supertest';
 import express from 'express';
 
+import { HardCodedRoomProvider } from '../src/dataproviders/roomProvider';
+
 const app = express();
 app.get('/', (req, res) => {
     res.send('Chef Backend is running!');
     test("HardCodedRoomProvider returns at least one room", () => {
-      import { HardCodedRoomProvider } from '../src/dataproviders/roomProvider';
       const provider = new HardCodedRoomProvider();
       expect(provider.getActiveRooms().length).toBeGreaterThan(0);
     });
