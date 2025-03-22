@@ -70,6 +70,8 @@ A brief description of what this project does and who it's for.
 ## Installation
 
 To install the frontend dependencies, open a command prompt and run:
+This project uses Fluent UI for its UI components to ensure our app has a polished look out of the box.
+Before starting, install Fluent UI by running: npm install @fluentui/react-components
 ```bash
 cd frontend && npm install
 ```
