@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Kitchen, PlayerProfile } from './';
+import { Kitchen, PlayerProfile } from './index';
 import { Player } from '../models/Player';
 
 interface LandingPageProps {
