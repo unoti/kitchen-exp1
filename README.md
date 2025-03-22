@@ -69,11 +69,17 @@ A brief description of what this project does and who it's for.
 
 ## Installation
 
-Instructions on how to install and set up the project.
+To install the frontend dependencies, open a command prompt and run:
+```bash
+cd frontend && npm install
+```
 
 ## Usage
 
-Examples of how to use the project.
+To run the frontend development server, open a command prompt and run:
+```bash
+cd frontend && npm start
+```
 
 ## Contributing
 
