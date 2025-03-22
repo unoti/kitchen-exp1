@@ -1,5 +1,5 @@
 import React from 'react';
-import Kitchen from './Kitchen';
+import Kitchen from './Kitchen.tsx';
 
 const LandingPage: React.FC = () => {
   // For now we render the Kitchen component directly.
