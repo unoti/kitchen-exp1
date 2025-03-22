@@ -83,6 +83,23 @@ To run the frontend development server, open a command prompt and run:
 cd frontend && npm start
 ```
 
+## Backend
+
+To install the backend dependencies, open a command prompt and run:
+```bash
+cd backend && npm install
+```
+
+To start the backend server, run:
+```bash
+cd backend && npm start
+```
+
+To run backend tests, run:
+```bash
+cd backend && npm test
+```
+
 ## Contributing
 
 Guidelines for contributing to the project.
