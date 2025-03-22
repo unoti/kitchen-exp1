@@ -88,3 +88,7 @@ Guidelines for contributing to the project.
 ## License
 
 Information about the project's license.
+
+## Why react-scripts?
+
+We are using react-scripts as a convenient zero-config tool provided by Create React App. It abstracts away complex configurations (such as webpack and Babel), allowing us to focus on our application code. This simplifies development and testing until we need more control over the build process.
