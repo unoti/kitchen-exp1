@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import Kitchen from './Kitchen.tsx';
+import { Kitchen, PlayerProfile } from './';
 import { Player } from '../models/Player';
-import PlayerProfile from './PlayerProfile';
 
 interface LandingPageProps {
   player: Player;
