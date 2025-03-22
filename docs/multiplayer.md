@@ -8,3 +8,5 @@ For simplicity:
 - This design cleanly separates display logic from game state management, keeping each component focused on its purpose.
 
 In this prototype, the backend is intentionally kept minimal. A basic HTTP health-check endpoint is provided solely for deployment and initial verification. Our primary focus is on business logic and state management through well-defined contracts and event-driven state transitions, rather than relying on synthetic HTTP or WebSocket requests for testing. This approach minimizes dependencies and keeps the HTTP layer as lean as possible.
+
+**Testing Focus:** Most testing will target our business logic contracts and state transitions directly, minimizing reliance on synthetic HTTP or WebSocket requests.
