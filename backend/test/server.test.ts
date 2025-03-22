@@ -45,9 +45,9 @@ describe('Room Provider', () => {
   });
 });
 
-describe('GET /', () => {
+describe('GET /health', () => {
   it('responds with Chef Backend is running!', async () => {
-    const response = await request(app).get('/');
+    const response = await request(app).get('/health');
     expect(response.text).toBe('Chef Backend is running!');
     expect(response.status).toBe(200);
   });
