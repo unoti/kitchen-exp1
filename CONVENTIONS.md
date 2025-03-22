@@ -11,3 +11,5 @@ Same goes for adding things in backend/node_modules.  We don't want node_modules
 As the user, I will run the frontend and backend server processes separately on my machine in other windows.
 Don't try to npm start things yourself, tell me as the user to do that when needed. 
 This can also relate to when I need to restart servers or frontends because new dependencies have been installed.
+
+We don't do real work in index.ts.  We only use these to roll up work done in other files.
