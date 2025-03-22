@@ -38,6 +38,11 @@ app.post('/rooms/join', (req: Request, res: Response) => {
   res.json(room);
 });
 
+// Add health check endpoint
+app.get('/health', (req: Request, res: Response) => {
+  res.send('Chef Backend is running!');
+});
+
 app.listen(port, () => {
   console.log(`Chef Backend listening at http://localhost:${port}`);
 });
