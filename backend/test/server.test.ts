@@ -4,7 +4,7 @@ import { RoomProvider } from '../src/dataproviders/roomProvider';
 
 describe('Room Endpoints', () => {
   it('GET /rooms should return an empty array when no rooms exist', async () => {
-    const response = await request('http://localhost:3000').get('/rooms');
+    const response = await request(app).get('/rooms');
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
     expect(response.body.length).toBe(0);
@@ -12,7 +12,7 @@ describe('Room Endpoints', () => {
 
   it('POST /rooms/join should create a room when none exist', async () => {
     const player = { id: 'p1', name: 'Alice' };
-    const response = await request('http://localhost:3000').post('/rooms/join').send({ player });
+    const response = await request(app).post('/rooms/join').send({ player });
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('name', 'Default Room');
