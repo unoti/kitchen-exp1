@@ -1,12 +1,6 @@
 import request from 'supertest';
-import express from 'express';
-
+import { app } from '../src/chefServer';
 import { RoomProvider } from '../src/dataproviders/roomProvider';
-
-const app = express();
-app.get('/', (req, res) => {
-    res.send('Chef Backend is running!');
-});
 
 describe('Room Endpoints', () => {
   it('GET /rooms should return an empty array when no rooms exist', async () => {
@@ -45,9 +39,9 @@ describe('Room Provider', () => {
   });
 });
 
-describe('GET /health', () => {
+describe('GET /status', () => {
   it('responds with Chef Backend is running!', async () => {
-    const response = await request(app).get('/health');
+    const response = await request(app).get('/status');
     expect(response.text).toBe('Chef Backend is running!');
     expect(response.status).toBe(200);
   });

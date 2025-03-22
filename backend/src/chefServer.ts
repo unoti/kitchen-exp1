@@ -2,7 +2,7 @@ import express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import { RoomProvider } from './dataproviders/roomProvider';
 
-const app = express();
+export const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -38,11 +38,13 @@ app.post('/rooms/join', (req: Request, res: Response) => {
   res.json(room);
 });
 
-// Add health check endpoint
-app.get('/health', (req: Request, res: Response) => {
+ // Add health check endpoint
+app.get('/status', (req: Request, res: Response) => {
   res.send('Chef Backend is running!');
 });
 
-app.listen(port, () => {
-  console.log(`Chef Backend listening at http://localhost:${port}`);
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Chef Backend listening at http://localhost:${port}`);
+  });
+}
