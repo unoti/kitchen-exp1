@@ -76,3 +76,5 @@ When setting up the backend, we encountered the following issues and fixes:
    ```
 
 These changes resulted in a successfully running backend server that responds correctly to the defined REST endpoints.
+
+* [Troubleshooting with Claude](https://claude.ai/share/cc840936-5ac0-493e-8e8b-f2e08af058d7)
