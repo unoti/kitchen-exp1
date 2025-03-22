@@ -9,6 +9,8 @@ python -m dana_agent.util.run_aider --help
 
 This isn't the exact one I'm using, but I've put it here to help you get started.
 
+branch rilack/dana-flows
+az login
 PS D:\code\one\COI-DANA-Copilot> .\env\dana\dana-venv\scripts\activate
 python -m dana_agent.util.run_aider --help
 """

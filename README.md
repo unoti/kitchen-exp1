@@ -87,17 +87,17 @@ cd frontend && npm start
 
 To install the backend dependencies, open a command prompt and run:
 ```bash
-npm --prefix backend install
+cd backend && npm install
 ```
 
 To start the backend server, run:
 ```bash
-npm --prefix backend start
+cd backend && npm start
 ```
 
 To run backend tests, run:
 ```bash
-npm --prefix backend test
+cd backend && npm test
 ```
 
 > **Note:** Make sure you are executing this command from the repository's root directory.
