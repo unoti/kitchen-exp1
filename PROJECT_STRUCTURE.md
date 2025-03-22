@@ -5,7 +5,9 @@ Below is a recommended project directory structure for **Yes Chef**:
 YesChef/
 ├── README.md                 # Project overview and setup instructions
 ├── frontend/                 # React frontend application
-│   ├── package.json          # Frontend dependencies and scripts
+│   ├── package.json          # Frontend dependencies and scripts (npm install here produces frontend/node_modules/)
+│   ├── package-lock.json     # Automatically generated lockfile for frontend dependencies
+│   ├── node_modules/         # Dependencies installed for the frontend
 │   ├── public/               # Public assets (index.html, images, etc.)
 │   └── src/                  # React components and application code
 │       ├── components/       # Reusable components
