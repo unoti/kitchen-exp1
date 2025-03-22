@@ -9,7 +9,8 @@ YesChef/
 │   ├── public/               # Public assets (index.html, images, etc.)
 │   └── src/                  # React components and application code
 │       ├── components/       # Reusable components
-│       ├── dataproviders/      # Modules for backend data interactions or hard-coded data in early prototypes
+│       ├── dataproviders/    # Modules for backend data interactions or hard-coded data in early prototypes
+│       ├── models/           # Data models used on the front end only
 │       ├── App.tsx           # Main app component
 │       └── index.tsx         # Entry point for the React app
 ├── backend/                  # Node.js backend server
