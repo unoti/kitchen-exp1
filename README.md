@@ -80,7 +80,7 @@ cd frontend && npm install
 
 To run the frontend development server, open a command prompt and run:
 ```bash
-cd frontend && npm start
+cd frontend && npm run dev
 ```
 
 ## Backend
