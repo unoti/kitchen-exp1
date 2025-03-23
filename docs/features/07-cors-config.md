@@ -28,3 +28,15 @@ Access to fetch at 'http://localhost:3000/rooms/join' from origin 'http://localh
 **Q: Does vite always use port 5173 or does it change?**  
 A: Vite defaults to port 5173; however, if that port is already in use or is overridden in the configuration (such as in vite.config.ts), Vite may select another available port.  We won't worry about this for now for this prototype.
 
+## Results
+This is working successfully.
+
+From backend console:
+```
+Chef Backend listening at http://localhost:3000
+Join room successful: {
+  id: 'room-1742762651082',
+  name: 'Default Room',
+  players: [ { id: 'p1', name: 'Unoti' } ]
+}
+```
