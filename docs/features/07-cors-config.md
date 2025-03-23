@@ -22,3 +22,9 @@ Access to fetch at 'http://localhost:3000/rooms/join' from origin 'http://localh
   ```
 - This will allow your frontend (running on port 5173) to successfully access backend endpoints.
 - Test the endpoints after applying these changes and adjust the configuration for allowed methods/headers if needed.
+
+## FAQ
+
+**Q: Does vite always use port 5173 or does it change?**  
+A: Vite defaults to port 5173; however, if that port is already in use or is overridden in the configuration (such as in vite.config.ts), Vite may select another available port.  We won't worry about this for now for this prototype.
+

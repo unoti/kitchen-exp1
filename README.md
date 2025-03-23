@@ -113,8 +113,3 @@ Information about the project's license.
 ## Why react-scripts?
 
 We are using react-scripts as a convenient zero-config tool provided by Create React App. It abstracts away complex configurations (such as webpack and Babel), allowing us to focus on our application code. This simplifies development and testing until we need more control over the build process.
-
-## FAQ
-
-**Q: Does vite always use port 5173 or does it change?**  
-A: Vite defaults to port 5173; however, if that port is already in use or is overridden in the configuration (such as in vite.config.ts), Vite may select another available port.
