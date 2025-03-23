@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Drawer, DrawerBody, DrawerHeader, Button } from '@fluentui/react-components';
+import { Settings24Regular } from '@fluentui/react-icons';
 import PlayerProfile from './PlayerProfile';
 
 interface OptionsPanelProps {
@@ -13,7 +14,7 @@ const OptionsPanel: React.FC<OptionsPanelProps> = ({ onSave }) => {
 
   return (
     <>
-      <Button onClick={toggleDrawer}>{open ? 'Close Options' : 'Open Options'}</Button>
+      <Button onClick={toggleDrawer}>{open ? 'Close Options' : <Settings24Regular />}</Button>
       <Drawer 
         open={open} 
         onOpenChange={(event, data) => setOpen(data.open)}
