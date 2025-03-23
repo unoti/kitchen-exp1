@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './OptionsPanel.scss';
 import { Drawer, DrawerBody, DrawerHeader, Button } from '@fluentui/react-components';
 import { Settings24Regular } from '@fluentui/react-icons';
 import PlayerProfile from './PlayerProfile';
@@ -18,7 +19,7 @@ const OptionsPanel: React.FC<OptionsPanelProps> = ({ onSave }) => {
       <Drawer 
         open={open} 
         onOpenChange={(event, data) => setOpen(data.open)}
-        style={{ transition: 'transform 0.3s ease' }}
+        className="optionsDrawer"
       >
         <DrawerHeader>
           <h2>Options</h2>
