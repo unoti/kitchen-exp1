@@ -7,7 +7,7 @@ interface PlayerProfileProps {
 }
 
 const PlayerProfile: React.FC<PlayerProfileProps> = ({ isOpen, onClose, onSave }) => {
-  const [playerName, setPlayerName] = useState('');
+  const [playerName, setPlayerName] = useState('Unoti');
 
   const handleSave = () => {
     if (playerName.trim()) {
