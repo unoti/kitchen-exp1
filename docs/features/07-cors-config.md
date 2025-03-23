@@ -13,3 +13,12 @@ Access to fetch at 'http://localhost:3000/rooms/join' from origin 'http://localh
 ```
 
 ## Strategy for fixing this
+- Install the `cors` package in the backend by running: npm install cors
+- In `backend/src/chefServer.ts`, import cors and add it as middleware before your routes:
+  ```typescript
+  import cors from 'cors';
+  // ...
+  app.use(cors({ origin: 'http://localhost:5173' }));
+  ```
+- This will allow your frontend (running on port 5173) to successfully access backend endpoints.
+- Test the endpoints after applying these changes and adjust the configuration for allowed methods/headers if needed.
