@@ -25,6 +25,8 @@ const PlayerProfile: React.FC<PlayerProfileProps> = ({ isOpen, onClose, onSave }
           value={playerName} 
           onChange={(e, data) => setPlayerName(data.value)} 
           placeholder="Enter your chef name"
+          spellCheck={false}
+          autoCorrect="off"
         />
       </div>
       <div style={{ marginTop: '10px' }}>
