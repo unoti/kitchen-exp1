@@ -25,3 +25,37 @@ We are preparing now to do some changes where the front end starts calling APIs 
 4. Update documentation and API endpoints as necessary to reflect the unified model definitions.
 
 
+### Question:
+> Are there fields that the frontend needs that the backend does not? I'm wondering if we should maintain a separate model for player in particu 
+. lar
+
+Based on the current state of the code:
+
+ • The shared model for Player is defined as follows:
+```typescript   
+   export interface Player {
+     id: string;
+     name: string;
+   }
+```   
+ • In frontend code (in frontend/src/models/Player.ts and its usage), the same fields (id and name) are expected.
+ • The backend also uses this shared Player type (for example, within rooms in the room provider). There are no extra fields on the frontend side     
+   beyond id and name.
+
+At this point, the requirements for the frontend and backend are aligned, so there's no evidence that the frontend needs additional fields that the   
+backend does not. Maintaining separate models for the same entity could lead to duplication and potential inconsistencies as the system evolves.      
+
+Recommendation:
+
+ 1 Unify the Model:
+   Consolidate the Player model into the shared models directory (as you're already planning to do with your refactor) so both the frontend and       
+   backend import the same definition.
+ 2 Extending in the Future:
+   If, in the future, you identify frontend-specific fields (for example, UI state details, presentation-specific flags, or additional client-side    
+   metadata), consider one of the following:
+    • Extend the shared Player interface for frontend needs, e.g., create an interface like PlayerUI extends Player so the domain model remains       
+      consistent while the frontend gets its extra properties.
+    • Use a transformation layer in the frontend that maps the shared Player into a richer object used by the UI. This allows you to keep the API     
+      contract simple while still managing client-specific behavior.
+
+For now, keeping a single, unified model for Player is both practical and in line with the goal of avoiding duplication.
