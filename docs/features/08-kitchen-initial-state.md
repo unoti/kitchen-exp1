@@ -19,15 +19,6 @@ export const ItemTypes = {
     container: 'container',
 };
 
-export const STATION_IDS = {
-    SHELF: 'Shelf',       // Station for basic ingredients (e.g., Sugar, Salt)
-    UTENSILS: 'Utensils', // Station for kitchen tools and containers (e.g., Knife, Bowl, Pot)
-    FRIDGE: 'Fridge',     // Station for perishables (e.g., Lime)
-    CUTTING_BOARD: 'CuttingBoard', // Used for operations like cutting ingredients (e.g., cutting Lime)
-    JUICER: 'Juicer',     // For juicing operations (e.g., producing Lime Juice)
-    STOVE: 'Stove'        // Cooking station
-};
-
 const initialState = {
     items: {
         1: { id: 1, name: 'Sugar', type: ItemTypes.ingredient, uom: 'volume' },
