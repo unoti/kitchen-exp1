@@ -9,7 +9,7 @@ interface OptionsPanelProps {
 }
 
 const OptionsPanel: React.FC<OptionsPanelProps> = ({ onSave }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const toggleDrawer = () => setOpen(!open);
 
