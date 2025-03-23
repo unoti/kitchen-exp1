@@ -19,6 +19,7 @@ app.get('/rooms', (req: Request, res: Response) => {
 app.post('/rooms/join', (req: Request, res: Response) => {
   const { player } = req.body;
   if (!player) {
+    console.error("Join room request failed: Missing player information");
     return res.status(400).json({ error: 'Missing player information' });
   }
   
@@ -35,6 +36,7 @@ app.post('/rooms/join', (req: Request, res: Response) => {
     room = rooms[0];
     room.players.push(player);
   }
+  console.log("Join room successful:", room);
   res.json(room);
 });
 
