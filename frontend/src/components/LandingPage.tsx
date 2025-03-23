@@ -1,7 +1,7 @@
 import React from 'react';
 import Kitchen from './Kitchen';
 import OptionsPanel from './OptionsPanel';
-import { Player } from '../models/Player';
+import { Player } from '../../shared/models/Player';
 
 interface LandingPageProps {
   player: Player;

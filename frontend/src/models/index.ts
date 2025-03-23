@@ -1,1 +1,1 @@
-export * from './Player';
+export * from '../../../shared/models/Player';
