@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Kitchen from './Kitchen';
-import PlayerProfile from './PlayerProfile';
+import OptionsPanel from './OptionsPanel';
 import { Player } from '../models/Player';
 
 interface LandingPageProps {
@@ -19,11 +19,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ player }) => {
     <div>
       <h1>Welcome to Yes Chef</h1>
       <Kitchen />
-      <PlayerProfile
-        isOpen={profileOpen}
-        onClose={() => setProfileOpen(false)}
-        onSave={handleProfileSave}
-      />
+      {profileOpen && (
+        <OptionsPanel
+          onClose={() => setProfileOpen(false)}
+          onSave={handleProfileSave}
+        />
+      )}
     </div>
   );
 };
