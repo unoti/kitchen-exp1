@@ -2,6 +2,8 @@
 
 This document describes the API endpoints for the Chef Backend server and provides example request and response bodies.
 
+**Note:** Shared models used by both the frontend and backend are stored in the `shared/models` directory. They can be referenced for details on the data structures the API consumes and returns.
+
 ---
 
 ## Endpoints
