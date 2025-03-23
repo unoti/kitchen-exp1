@@ -6,7 +6,7 @@
     "test": "test"
   },
   "scripts": {
-    "start": "ts-node src/chefServer.ts",
+    "start": "nodemon --exec ts-node src/chefServer.ts",
     "test": "jest"
   },
   "keywords": [],
