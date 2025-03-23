@@ -40,3 +40,11 @@ Join room successful: {
   players: [ { id: 'p1', name: 'Unoti' } ]
 }
 ```
+
+From the frontend console:
+```
+client:743 [vite] connecting...
+client:866 [vite] connected.
+LandingPage.tsx:13 Player name saved: Unoti
+LandingPage.tsx:17 Joined room: {id: 'room-1742762651082', name: 'Default Room', players: Array(1)}id: "room-1742762651082"name: "Default Room"players: Array(1)0: {id: 'p1', name: 'Unoti'}length: 1[[Prototype]]: Array(0)[[Prototype]]: Object
+```
