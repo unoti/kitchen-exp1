@@ -18,17 +18,27 @@ export const ItemTypes = {
     tool: 'tool',
     container: 'container',
 };
+export const ITEM_IDS = {
+    SUGAR: 1,
+    SALT: 2,
+    KNIFE: 3,
+    BOWL: 4,
+    POT: 5,
+    LIME: 6,
+    HALF_LIME: 7,
+    LIME_JUICE: 8,
+};
 
 const initialState = {
     items: {
-        1: { id: 1, name: 'Sugar', type: ItemTypes.ingredient, uom: 'volume' },
-        2: { id: 2, name: 'Salt', type: ItemTypes.ingredient, uom: 'volume' },
-        3: { id: 3, name: 'Knife', type: ItemTypes.tool },
-        4: { id: 4, name: 'Bowl', type: ItemTypes.container },
-        5: { id: 5, name: 'Pot', type: ItemTypes.container },
-        6: { id: 6, name: 'Lime', type: ItemTypes.ingredient, uom: 'each'},
-        7: { id: 7, name: 'Half Lime', type: ItemTypes.ingredient, uom: 'each' },
-        8: { id: 8, name: 'Lime Juice', type: ItemTypes.ingredient, uom: 'ml' },
+        [ITEM_IDS.SUGAR]: { id: ITEM_IDS.SUGAR, name: 'Sugar', type: ItemTypes.ingredient, uom: 'volume' },
+        [ITEM_IDS.SALT]: { id: ITEM_IDS.SALT, name: 'Salt', type: ItemTypes.ingredient, uom: 'volume' },
+        [ITEM_IDS.KNIFE]: { id: ITEM_IDS.KNIFE, name: 'Knife', type: ItemTypes.tool },
+        [ITEM_IDS.BOWL]: { id: ITEM_IDS.BOWL, name: 'Bowl', type: ItemTypes.container },
+        [ITEM_IDS.POT]: { id: ITEM_IDS.POT, name: 'Pot', type: ItemTypes.container },
+        [ITEM_IDS.LIME]: { id: ITEM_IDS.LIME, name: 'Lime', type: ItemTypes.ingredient, uom: 'each'},
+        [ITEM_IDS.HALF_LIME]: { id: ITEM_IDS.HALF_LIME, name: 'Half Lime', type: ItemTypes.ingredient, uom: 'each' },
+        [ITEM_IDS.LIME_JUICE]: { id: ITEM_IDS.LIME_JUICE, name: 'Lime Juice', type: ItemTypes.ingredient, uom: 'ml' },
     },
 
     people: {}, // Key: playerId. We'll seed this with a first player by submitting an action below.
@@ -66,7 +76,7 @@ const initialState = {
             occupiedBy: null,
             holdTypes: [ItemTypes.ingredient],
             operations: [
-                { name: "Cut Lime", consumeId: 6, provideId: 7, provideQty: 2, usingId: 3}, // Cut limes into half limes using knife
+                { name: "Cut Lime", consumeId: ITEM_IDS.LIME, provideId: ITEM_IDS.HALF_LIME, provideQty: 2, usingId: ITEM_IDS.KNIFE}, // Cut limes into half limes using knife
             ],
         },
         'Juicer': {
@@ -75,7 +85,7 @@ const initialState = {
             occupiedBy: null,
             holdTypes: [ItemTypes.ingredient],
             operations: [
-                { name: "Juice", consumeId: 7, provideId: 8, },
+                { name: "Juice", consumeId: ITEM_IDS.HALF_LIME, provideId: ITEM_IDS.LIME_JUICE, },
             ],
         },
         'Stove': {
