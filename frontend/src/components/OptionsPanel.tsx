@@ -1,17 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Drawer, DrawerBody, DrawerHeader, Button } from '@fluentui/react-components';
 import PlayerProfile from './PlayerProfile';
 
 interface OptionsPanelProps {
-  onClose: () => void;
   onSave: (name: string) => void;
 }
 
-const OptionsPanel: React.FC<OptionsPanelProps> = ({ onClose, onSave }) => {
+const OptionsPanel: React.FC<OptionsPanelProps> = ({ onSave }) => {
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = () => setOpen(!open);
+
   return (
-    <div style={{ border: '1px solid #ccc', padding: '20px', width: '300px' }}>
-      <h2>Options</h2>
-      <PlayerProfile onClose={onClose} onSave={onSave} />
-    </div>
+    <>
+      <Button onClick={toggleDrawer}>{open ? 'Close Options' : 'Open Options'}</Button>
+      <Drawer 
+        open={open} 
+        onOpenChange={(event, data) => setOpen(data.open)}
+        style={{ transition: 'transform 0.3s ease' }}
+      >
+        <DrawerHeader>
+          <h2>Options</h2>
+        </DrawerHeader>
+        <DrawerBody>
+          <PlayerProfile 
+            onClose={() => setOpen(false)} 
+            onSave={(name: string) => {
+              onSave(name);
+              setOpen(false);
+            }}
+          />
+        </DrawerBody>
+      </Drawer>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Kitchen from './Kitchen';
 import OptionsPanel from './OptionsPanel';
 import { Player } from '../models/Player';
@@ -8,23 +8,14 @@ interface LandingPageProps {
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ player }) => {
-  const [profileOpen, setProfileOpen] = useState(true);
   const handleProfileSave = (name: string) => {
     console.log("Player name saved:", name);
-    setProfileOpen(false);
   };
-  // For now we render the Kitchen component directly.
-  // You can later add your menu or other navigational components here.
   return (
     <div>
       <h1>Welcome to Yes Chef</h1>
       <Kitchen />
-      {profileOpen && (
-        <OptionsPanel
-          onClose={() => setProfileOpen(false)}
-          onSave={handleProfileSave}
-        />
-      )}
+      <OptionsPanel onSave={handleProfileSave} />
     </div>
   );
 };
