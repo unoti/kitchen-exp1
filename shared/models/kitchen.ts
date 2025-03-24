@@ -8,7 +8,7 @@ export const ItemTypes = {
     container: 'container',
 };
 
- // Representation of an item in the kitchen.
+ // A kind of item, and what it can do when it exists.
 export interface Item {
     id: number;
     name: string;
