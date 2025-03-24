@@ -13,6 +13,8 @@ In this milestone we will implement the initial state management for our kitchen
 2. **Event Definitions:**  
    - Define event/action types in the shared models (e.g., in a new file under `shared/models/events.ts`) to ensure a consistent contract between the backend and frontend.
    - These actions will later be used by the reducer to update the state.
+   - Define one event for now, player join.  We will not use this event yet, and we will not do a reducer for any events yet.
+   - We're just defining this so that readers of the code will see where we're headed.
 
 3. **Testing Setup:**  
    - Write a simple unit test (e.g., in `backend/test/kitchenState.test.ts`) which calls the initial state creation function and, if applicable, the reducer.  
