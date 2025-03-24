@@ -17,8 +17,10 @@ export const ITEM_IDS = {
     LIME_JUICE: 8,
 };
 
+// Unit of Measure: whether the item is counted, weighed, or measured by volume.
 export type Uom = 'each' | 'weight' | 'volume';
 
+// Definitions of kinds of items that can exist in the kitchen.
 export interface Item {
     id: number;
     name: string;
@@ -26,24 +28,26 @@ export interface Item {
     uom: Uom;
 }
 
+// Something that we can do at a station (e.g., cutting or juicing).
 export interface Operation {
     name: string;
-    consumeId: number;
-    provideId: number;
-    provideQty?: number;
-    usingId?: number;
+    consumeId: number; // Item ID to consume
+    provideId: number; // Item ID to provide
+    provideQty?: number; // How many are provided when the operation is done
+    consumeQty?: number; // How many are consumed when the operation is done
+    usingId?: number; // Tool that must be present to do the operation (optional), e.g. knife
 }
 
 export interface KitchenState {
-    items: { [id: number]: Item };
-    people: { [playerId: string]: any };
+    items: { [id: number]: Item }; // Definitions of items that can exist in the kitchen.
+    people: { [playerId: string]: any }; // Players that are in the kitchen.
     stations: {
        [stationName: string]: {
-         name: string;
-         inventory: { [itemId: number]: number };
-         occupiedBy: string | null;
-         holdTypes: string[];
-         operations?: Operation[];
+         name: string; // Name of the station. This is also the key in the stations map.
+         inventory: { [itemId: number]: number }; // Items that are currently in the station's inventory.
+         occupiedBy: string | null; // Player ID of the person using this station, or null if not occupied.
+         holdTypes: string[]; // Item ids that can be held at this station.
+         operations?: Operation[]; // Operations that can be performed at this station.
        }
     };
 }
