@@ -1,4 +1,4 @@
-import { lobbyReducer, initialLobbyState, LobbyActionType, RoomRemoveAction } from "../src/lobbyState";
+import { lobbyReducer, initialLobbyState, LobbyActionType, RoomRemoveAction, RoomCreateAction } from "../src/lobbyState";
 import { initialKitchenState } from "../src/kitchenState";
 
 describe("Lobby State", () => {
@@ -12,21 +12,21 @@ describe("Lobby State", () => {
   });
 
   it("should handle ROOM_CREATE action", () => {
-    const roomId = "room1";
-    const action = {
+    const createAction: RoomCreateAction = {
       type: LobbyActionType.ROOM_CREATE,
-      payload: { roomId, kitchenState: initialKitchenState },
+      payload: { kitchenState: initialKitchenState },
     };
-    const newState = lobbyReducer(initialLobbyState, action);
+    const newState = lobbyReducer(initialLobbyState, createAction);
+    const roomId = '1';
     expect(newState.rooms[roomId]).toEqual(initialKitchenState);
   });
 
   it("should handle ROOM_REMOVE action", () => {
-    const roomId = "room1";
-    const createAction = {
+    const createAction: RoomCreateAction = {
       type: LobbyActionType.ROOM_CREATE,
-      payload: { roomId, kitchenState: initialKitchenState },
+      payload: { kitchenState: initialKitchenState },
     };
+    const roomId = '1';
     const withRoom = lobbyReducer(initialLobbyState, createAction);
     const removeAction: RoomRemoveAction = {
       type: LobbyActionType.ROOM_REMOVE,
