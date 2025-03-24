@@ -8,12 +8,14 @@ export const ItemTypes = {
     container: 'container',
 };
 
+export type Uom = 'each' | 'weight' | 'volume';
+
  // A kind of item, and what it can do when it exists.
 export interface Item {
     id: number;
     name: string;
     type: string;
-    uom?: string;
+    uom: Uom;
 }
 
  // Mapping of item IDs to Item objects.

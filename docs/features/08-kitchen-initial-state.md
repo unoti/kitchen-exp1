@@ -29,16 +29,18 @@ export const ITEM_IDS = {
     LIME_JUICE: 8,
 };
 
+export type Uom = 'each' | 'weight' | 'volume';
+
 const initialState = {
     items: {
         [ITEM_IDS.SUGAR]: { id: ITEM_IDS.SUGAR, name: 'Sugar', type: ItemTypes.ingredient, uom: 'volume' },
         [ITEM_IDS.SALT]: { id: ITEM_IDS.SALT, name: 'Salt', type: ItemTypes.ingredient, uom: 'volume' },
-        [ITEM_IDS.KNIFE]: { id: ITEM_IDS.KNIFE, name: 'Knife', type: ItemTypes.tool },
-        [ITEM_IDS.BOWL]: { id: ITEM_IDS.BOWL, name: 'Bowl', type: ItemTypes.container },
-        [ITEM_IDS.POT]: { id: ITEM_IDS.POT, name: 'Pot', type: ItemTypes.container },
+        [ITEM_IDS.KNIFE]: { id: ITEM_IDS.KNIFE, name: 'Knife', type: ItemTypes.tool, uom: 'each' },
+        [ITEM_IDS.BOWL]: { id: ITEM_IDS.BOWL, name: 'Bowl', type: ItemTypes.container, uom: 'each' },
+        [ITEM_IDS.POT]: { id: ITEM_IDS.POT, name: 'Pot', type: ItemTypes.container, uom: 'each' },
         [ITEM_IDS.LIME]: { id: ITEM_IDS.LIME, name: 'Lime', type: ItemTypes.ingredient, uom: 'each'},
         [ITEM_IDS.HALF_LIME]: { id: ITEM_IDS.HALF_LIME, name: 'Half Lime', type: ItemTypes.ingredient, uom: 'each' },
-        [ITEM_IDS.LIME_JUICE]: { id: ITEM_IDS.LIME_JUICE, name: 'Lime Juice', type: ItemTypes.ingredient, uom: 'ml' },
+        [ITEM_IDS.LIME_JUICE]: { id: ITEM_IDS.LIME_JUICE, name: 'Lime Juice', type: ItemTypes.ingredient, uom: 'volume' },
     },
 
     people: {}, // Key: playerId. We'll seed this with a first player by submitting an action below.
