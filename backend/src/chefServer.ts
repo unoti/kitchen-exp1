@@ -63,4 +63,11 @@ if (require.main === module) {
 
     ws.send('Welcome to the Chef WebSocket server!');
   });
+
+  
+  httpServer.listen(port, () => {
+    console.log(`Chef Backend listening at http://localhost:${port}`);
+  });
+
+  console.log("Chef Backend initialization complete");
 }

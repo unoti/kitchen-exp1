@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Kitchen from './Kitchen';
 import OptionsPanel from './OptionsPanel';
 import { Player } from '../../shared/models/Player';
-import { LobbyProvider } from '../dataproviders/lobbyProvider';
 import useGameConnection from '../hooks/useGameConnection';
 
 const LandingPage: React.FC = () => {
-  const [player, setPlayer] = useState<Player | null>(null);
+  const [player, setPlayer] = useState<Player>({id: "unknown", name: "Unoti"});
   const connection = useGameConnection();
   useEffect(() => {
     if (connection && player) {
@@ -15,16 +14,9 @@ const LandingPage: React.FC = () => {
   }, [connection, player]);
 
   const handleProfileSave = async (name: string) => {
-    const newPlayer = { id: "temp", name };
+    const newPlayer = { ...player, name };
+    console.log("Saving player profile:", newPlayer);
     setPlayer(newPlayer);
-    console.log("Player name saved:", name);
-    const lobbyProvider = new LobbyProvider();
-    try {
-      const joinedRoom = await lobbyProvider.joinRoom(newPlayer);
-      console.log("Joined room:", joinedRoom);
-    } catch (error) {
-      console.error("Error joining room:", error);
-    }
   };
   return (
     <div>
