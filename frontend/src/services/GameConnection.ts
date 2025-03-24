@@ -45,12 +45,7 @@ class GameConnection {
   }
 
   disconnect() {
-    if (
-      this.ws.readyState === WebSocket.OPEN ||
-      this.ws.readyState === WebSocket.CONNECTING
-    ) {
       this.ws.close();
-    }
   }
 }
 
