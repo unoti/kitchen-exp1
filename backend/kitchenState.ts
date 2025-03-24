@@ -26,6 +26,14 @@ export interface Item {
     uom: Uom;
 }
 
+export interface Operation {
+    name: string;
+    consumeId: number;
+    provideId: number;
+    provideQty?: number;
+    usingId?: number;
+}
+
 export interface KitchenState {
     items: { [id: number]: Item };
     people: { [playerId: string]: any };
@@ -35,13 +43,7 @@ export interface KitchenState {
          inventory: { [itemId: number]: number };
          occupiedBy: string | null;
          holdTypes: string[];
-         operations?: Array<{ 
-            name: string;
-            consumeId: number;
-            provideId: number;
-            provideQty?: number;
-            usingId?: number;
-         }>;
+         operations?: Operation[];
        }
     };
 }
