@@ -3,6 +3,7 @@ import cors from 'cors';
 import http from 'http';
 import { Request, Response } from 'express';
 import { RoomProvider } from './dataproviders/roomProvider';
+import { initialLobbyState, lobbyReducer } from './lobbyState';
 import { WebSocketServer } from 'ws';
 
 export const app = express();
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cors({ origin: 'http://localhost:5173' }));
 
 const roomProvider = new RoomProvider();
+let lobbyState = initialLobbyState;
 
 // GET /rooms - Returns a list of active rooms
 app.get('/rooms', (req: Request, res: Response) => {
