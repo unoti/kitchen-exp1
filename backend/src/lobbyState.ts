@@ -1,4 +1,4 @@
-import { KitchenState, initialKitchenState } from "./kitchenState";
+import { KitchenState } from "./kitchenState";
 
 export interface LobbyState {
     rooms: {
