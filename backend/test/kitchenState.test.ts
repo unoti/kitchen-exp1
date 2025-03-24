@@ -1,4 +1,4 @@
-import { initialKitchenState, kitchenReducer } from "../kitchenState";
+import { initialKitchenState, kitchenReducer } from "../src/kitchenState";
 
 describe("Kitchen State", () => {
   it("should initialize with correct state", () => {
