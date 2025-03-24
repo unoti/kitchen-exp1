@@ -1,4 +1,4 @@
-import { KitchenEventType } from "../shared/models/events";
+import { KitchenEventType } from "../../shared/models/events";
 export const unlimitedQty = 9999;
 
 export const ItemTypes = {
