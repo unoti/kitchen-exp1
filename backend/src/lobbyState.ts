@@ -29,7 +29,14 @@ export interface RoomRemoveAction {
     };
 }
 
-export type LobbyAction = RoomCreateAction | RoomRemoveAction;
+export interface PlayerJoinAction {
+    type: KitchenEventType.PLAYER_JOIN;
+    payload: {
+        id: string;
+    };
+}
+
+export type LobbyAction = RoomCreateAction | RoomRemoveAction | PlayerJoinAction;
 
 export const initialLobbyState: LobbyState = {
     rooms: {},
