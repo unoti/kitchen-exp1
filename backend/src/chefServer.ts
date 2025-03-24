@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import http from 'http';
 import { Request, Response } from 'express';
 import { RoomProvider } from './dataproviders/roomProvider';
 import { WebSocketServer } from 'ws';
@@ -43,20 +44,23 @@ app.post('/rooms/join', (req: Request, res: Response) => {
   res.json(room);
 });
 
- // Add health check endpoint
+ // Health check endpoint
 app.get('/status', (req: Request, res: Response) => {
   res.send('Chef Backend is running!');
 });
 
 if (require.main === module) {
-  const server = app.listen(port, () => {
-    console.log(`Chef Backend listening at http://localhost:${port}`);
-  });
-  const wss = new WebSocketServer({ server, path: '/game' });
+  console.log("Starting Chef Backend...");
+  const httpServer = http.createServer(app);
+  const wss = new WebSocketServer({ server: httpServer, path: '/game' });
+
   wss.on('connection', (ws, req) => {
     console.log('New WebSocket connection:', req.url);
+
     ws.on('message', (message) => {
-      console.log('Received WebSocket message:', message);
+      console.log('Received WebSocket message:', message.toString());
     });
+
+    ws.send('Welcome to the Chef WebSocket server!');
   });
 }
