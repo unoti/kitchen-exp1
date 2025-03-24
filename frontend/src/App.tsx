@@ -3,10 +3,9 @@ import LandingPage from './components/LandingPage.tsx'; // I shouldn't need the 
 import { FluentProvider, webLightTheme } from '@fluentui/react-components';
 
 const App: React.FC = () => {
-  const currentPlayer = { id: 'p1', name: 'Player1' };
   return (
     <FluentProvider theme={webLightTheme}>
-      <LandingPage player={currentPlayer} />
+      <LandingPage />
     </FluentProvider>
   );
 };
