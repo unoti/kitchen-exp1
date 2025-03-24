@@ -1,3 +1,4 @@
+import { KitchenEventType } from "../shared/models/events";
 export const unlimitedQty = 9999;
 
 export const ItemTypes = {
@@ -126,6 +127,14 @@ export type KitchenAction = {
 
 export function kitchenReducer(state: KitchenState = initialKitchenState, action: KitchenAction): KitchenState {
     switch (action.type) {
+        case KitchenEventType.PLAYER_JOIN:
+            return {
+                ...state,
+                people: {
+                    ...state.people,
+                    [action.payload.id]: action.payload,
+                },
+            };
         // Future action handling will be implemented here.
         default:
             return state;
