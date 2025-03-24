@@ -3,6 +3,7 @@ import { KitchenEventType } from '../../../shared/models/events';
 
 class GameConnection {
   private ws: WebSocket;
+  private joined: boolean = false; // Flag to ensure join event is only sent once
 
   constructor() {
     this.ws = new WebSocket("ws://localhost:3000/game");
@@ -18,24 +19,28 @@ class GameConnection {
   }
 
   connect(player: Player) {
-    if (this.ws.readyState === WebSocket.OPEN) {
+    // If we've already connected and sent the join event, do nothing.
+    if (this.joined) {
+      console.warn("Connect already called; join event already sent.");
+      return;
+    }
+
+    const sendJoin = () => {
       const joinEvent = {
         type: KitchenEventType.PLAYER_JOIN,
         payload: player,
       };
       this.ws.send(JSON.stringify(joinEvent));
+      this.joined = true;
+    };
+
+    if (this.ws.readyState === WebSocket.OPEN) {
+      sendJoin();
+    } else if (this.ws.readyState === WebSocket.CONNECTING) {
+      // Add a one-time listener to send the join event once the connection is open.
+      this.ws.addEventListener("open", sendJoin, { once: true });
     } else {
-      this.ws.addEventListener(
-        "open",
-        () => {
-          const joinEvent = {
-            type: KitchenEventType.PLAYER_JOIN,
-            payload: player,
-          };
-          this.ws.send(JSON.stringify(joinEvent));
-        },
-        { once: true }
-      );
+      console.error("WebSocket is in an unexpected state:", this.ws.readyState);
     }
   }
 
