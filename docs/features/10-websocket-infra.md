@@ -19,3 +19,11 @@ down that websocket an event with a player join which includes their profile inf
 
 Then from there the server hears that event, joins them to a room, and now they are
 connected to that room's reducer via a websocket.
+
+## Recommendations and Thoughts
+
+- **Consider Robust Connection Handling:** Ensure the client retries connection attempts and handles disconnections gracefully.
+- **Security Improvements:** Validate websocket events with proper authentication (e.g., tokens) to prevent unauthorized access.
+- **Error Propagation & Logging:** Implement detailed error logging and provide clear feedback for connection timeouts or failures.
+- **Scalability Considerations:** Plan for managing a high volume of websocket connections through load balancing or clustering.
+- **Documentation Updates:** Regularly update both development and user documentation to reflect the real-time architecture changes.
