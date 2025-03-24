@@ -4,6 +4,7 @@ export interface LobbyState {
     rooms: {
         [roomId: string]: KitchenState;
     };
+    players: { [playerId: string]: string };
     lastRoomId: number;
     lastPlayerId: number;
 }
@@ -31,6 +32,7 @@ export type LobbyAction = RoomCreateAction | RoomRemoveAction;
 
 export const initialLobbyState: LobbyState = {
     rooms: {},
+    players: {},
     lastRoomId: 0,
     lastPlayerId: 0
 };
