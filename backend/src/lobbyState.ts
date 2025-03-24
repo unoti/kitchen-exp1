@@ -1,4 +1,5 @@
-import { KitchenState } from "./kitchenState";
+import { KitchenState, initialKitchenState } from "./kitchenState";
+import { KitchenEventType } from "../../shared/models/events";
 
 export interface LobbyState {
     rooms: {
@@ -54,6 +55,24 @@ export function lobbyReducer(state: LobbyState = initialLobbyState, action: Lobb
             return {
                 ...state,
                 rooms: rest,
+            };
+        case KitchenEventType.PLAYER_JOIN:
+            if (state.players[action.payload.id]) {
+                console.error("Player already exists in a room");
+                return state;
+            }
+            const newJoinRoomId = (state.lastRoomId + 1).toString();
+            return {
+                ...state,
+                lastRoomId: state.lastRoomId + 1,
+                rooms: {
+                    ...state.rooms,
+                    [newJoinRoomId]: initialKitchenState,
+                },
+                players: {
+                    ...state.players,
+                    [action.payload.id]: newJoinRoomId,
+                },
             };
         default:
             return state;
