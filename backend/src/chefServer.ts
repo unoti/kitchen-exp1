@@ -4,7 +4,11 @@ import http from 'http';
 import { Request, Response } from 'express';
 import { RoomProvider } from './dataproviders/roomProvider';
 import { initialLobbyState, lobbyReducer } from './lobbyState';
-import { WebSocketServer } from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
+
+interface PlayerWebsocket extends WebSocket {
+  playerId?: string;
+}
 
 export const app = express();
 const port = process.env.PORT || 3000;
@@ -57,13 +61,14 @@ if (require.main === module) {
   const wss = new WebSocketServer({ server: httpServer, path: '/game' });
 
   wss.on('connection', (ws, req) => {
-    console.log('New WebSocket connection:', req.url);
+    const playerWs = ws as PlayerWebsocket;
+    console.log('New WebSocket connection:', req.url, "player id:", playerWs.playerId);
 
-    ws.on('message', (message) => {
-      console.log('Received WebSocket message:', message.toString());
+    playerWs.on('message', (message) => {
+      console.log('Received WebSocket message from player', playerWs.playerId, ":", message.toString());
     });
 
-    ws.send('Welcome to the Chef WebSocket server!');
+    playerWs.send('Welcome to the Chef WebSocket server!');
   });
 
   
