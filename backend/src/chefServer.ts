@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { Request, Response } from 'express';
 import { RoomProvider } from './dataproviders/roomProvider';
+import { WebSocketServer } from 'ws';
 
 export const app = express();
 const port = process.env.PORT || 3000;
@@ -48,7 +49,14 @@ app.get('/status', (req: Request, res: Response) => {
 });
 
 if (require.main === module) {
-  app.listen(port, () => {
+  const server = app.listen(port, () => {
     console.log(`Chef Backend listening at http://localhost:${port}`);
+  });
+  const wss = new WebSocketServer({ server, path: '/game' });
+  wss.on('connection', (ws, req) => {
+    console.log('New WebSocket connection:', req.url);
+    ws.on('message', (message) => {
+      console.log('Received WebSocket message:', message);
+    });
   });
 }
