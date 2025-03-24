@@ -27,3 +27,10 @@ connected to that room's reducer via a websocket.
 - **Error Propagation & Logging:** Implement detailed error logging and provide clear feedback for connection timeouts or failures.
 - **Scalability Considerations:** Plan for managing a high volume of websocket connections through load balancing or clustering.
 - **Documentation Updates:** Regularly update both development and user documentation to reflect the real-time architecture changes.
+
+## Prototype Considerations and Next Steps
+
+- For this prototype, the player join functionality will be handled entirely over the websocket connection. We will eliminate the REST endpoint for joining rooms.
+- If a player's websocket disconnects, they will be removed from the room immediately. Persistence and reconnection logic will be considered only if the prototype progresses further.
+- There is no need for authentication or advanced error handling at this stage; the primary focus is on exploring the real-time gameplay experience.
+- Future improvements could include robust reconnection strategies using last-heard timestamps and secure authentication flows.
