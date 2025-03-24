@@ -4,6 +4,8 @@ export interface LobbyState {
     rooms: {
         [roomId: string]: KitchenState;
     };
+    lastRoomId: number;
+    lastPlayerId: number;
 }
 
 export enum LobbyActionType {
@@ -14,7 +16,6 @@ export enum LobbyActionType {
 export interface RoomCreateAction {
     type: LobbyActionType.ROOM_CREATE;
     payload: {
-        roomId: string;
         kitchenState: KitchenState;
     };
 }
@@ -29,17 +30,21 @@ export interface RoomRemoveAction {
 export type LobbyAction = RoomCreateAction | RoomRemoveAction;
 
 export const initialLobbyState: LobbyState = {
-    rooms: {}
+    rooms: {},
+    lastRoomId: 0,
+    lastPlayerId: 0
 };
 
 export function lobbyReducer(state: LobbyState = initialLobbyState, action: LobbyAction): LobbyState {
     switch (action.type) {
         case LobbyActionType.ROOM_CREATE:
+            const newRoomId = (state.lastRoomId + 1).toString();
             return {
                 ...state,
+                lastRoomId: state.lastRoomId + 1,
                 rooms: {
                     ...state.rooms,
-                    [action.payload.roomId]: action.payload.kitchenState,
+                    [newRoomId]: action.payload.kitchenState,
                 },
             };
         case LobbyActionType.ROOM_REMOVE:
