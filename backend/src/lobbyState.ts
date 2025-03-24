@@ -8,6 +8,7 @@ export interface LobbyState {
     players: { [playerId: string]: string };
     lastRoomId: number;
     lastPlayerId: number;
+    lastJoinedPlayerId: string;
 }
 
 export enum LobbyActionType {
@@ -42,7 +43,8 @@ export const initialLobbyState: LobbyState = {
     rooms: {},
     players: {},
     lastRoomId: 0,
-    lastPlayerId: 0
+    lastPlayerId: 0,
+    lastJoinedPlayerId: ""
 };
 
 export function lobbyReducer(state: LobbyState = initialLobbyState, action: LobbyAction): LobbyState {
@@ -69,6 +71,23 @@ export function lobbyReducer(state: LobbyState = initialLobbyState, action: Lobb
                 return state;
             }
             const newJoinRoomId = (state.lastRoomId + 1).toString();
+            if (action.payload.id === 'unknown') {
+                const newPlayerId = (state.lastPlayerId + 1).toString();
+                return {
+                    ...state,
+                    lastRoomId: state.lastRoomId + 1,
+                    lastPlayerId: state.lastPlayerId + 1,
+                    lastJoinedPlayerId: newPlayerId,
+                    rooms: {
+                        ...state.rooms,
+                        [newJoinRoomId]: initialKitchenState,
+                    },
+                    players: {
+                        ...state.players,
+                        [newPlayerId]: newJoinRoomId,
+                    },
+                };
+            }
             return {
                 ...state,
                 lastRoomId: state.lastRoomId + 1,
