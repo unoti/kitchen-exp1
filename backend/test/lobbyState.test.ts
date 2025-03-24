@@ -1,4 +1,4 @@
-import { lobbyReducer, initialLobbyState, LobbyActionType } from "../src/lobbyState";
+import { lobbyReducer, initialLobbyState, LobbyActionType, RoomRemoveAction } from "../src/lobbyState";
 import { initialKitchenState } from "../src/kitchenState";
 
 describe("Lobby State", () => {
@@ -28,7 +28,7 @@ describe("Lobby State", () => {
       payload: { roomId, kitchenState: initialKitchenState },
     };
     const withRoom = lobbyReducer(initialLobbyState, createAction);
-    const removeAction = {
+    const removeAction: RoomRemoveAction = {
       type: LobbyActionType.ROOM_REMOVE,
       payload: { roomId },
     };
