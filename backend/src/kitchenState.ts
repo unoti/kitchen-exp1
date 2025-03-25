@@ -127,21 +127,134 @@ export type KitchenAction = {
     payload?: any;
 };
 
+function deleteKey(o: any, key: string) {
+    const { [key]: _removed, ...updatedItem } = o;
+    return updatedItem;
+}
+
+function updateInventory(existingInventory: { [itemId: number]: number }, item: any, deltaQty: number) {
+    const existingQty = existingInventory[item.id] ?? 0;
+    const newQty = existingQty === unlimitedQty ? unlimitedQty : existingQty + deltaQty;
+    if (newQty) {
+        return { ...existingInventory, [item.id]: newQty };
+    } else {
+        return deleteKey(existingInventory, String(item.id));
+    }
+}
+
+function transactInventory(item: any, deltaQty: number, fromInventory: { [itemId: number]: number }, toInventory: { [itemId: number]: number }) {
+    const updatedFromInventory = updateInventory(fromInventory, item, deltaQty);
+    const updatedToInventory = updateInventory(toInventory, item, -deltaQty);
+    return [updatedFromInventory, updatedToInventory];
+}
+
+function getPerson(state: KitchenState, personId: string) {
+    const person = state.people[personId];
+    if (!person) {
+        console.log(`Person ${personId} not found`);
+        return null;
+    }
+    return person;
+}
+
+function updateStationInventory(state: KitchenState, station: any, newInventory: { [itemId: number]: number }) {
+    const newStation = { ...station, inventory: newInventory };
+    const newStations = { ...state.stations, [station.name]: newStation };
+    return { ...state, stations: newStations };
+}
+
+function transactState(state: KitchenState, itemId: number, qty: number, personId: string): KitchenState {
+    const person = getPerson(state, personId);
+    if (!person) return state;
+    const item = state.items[itemId];
+    const stationName = person.station;
+    const station = state.stations[stationName];
+    const [newPersonInventory, newStationInventory] = transactInventory(
+        item, qty, person.inventory || {}, station.inventory
+    );
+    const newPerson = { ...person, inventory: newPersonInventory };
+    return {
+        ...state,
+        people: { ...state.people, [personId]: newPerson },
+        stations: { ...state.stations, [stationName]: { ...station, inventory: newStationInventory } },
+    };
+}
+
 export function kitchenReducer(state: KitchenState = initialKitchenState, action: KitchenAction): KitchenState {
     switch (action.type) {
         case KitchenEventType.PLAYER_JOIN: {
             const newId = state.lastPlayerId + 1;
             const id = newId.toString();
+            const firstEmptyStation = Object.values(state.stations).find(station => !station.occupiedBy);
+            if (!firstEmptyStation) {
+                console.log('No empty stations available for new player');
+            }
+            const newPlayer = { id, name: action.payload.name, station: firstEmptyStation ? firstEmptyStation.name : null, inventory: {} };
             return {
                 ...state,
                 lastPlayerId: newId,
                 people: {
                     ...state.people,
-                    [id]: { id, name: action.payload.name },
+                    [id]: newPlayer,
                 },
+                stations: firstEmptyStation ? {
+                    ...state.stations,
+                    [firstEmptyStation.name]: { ...firstEmptyStation, occupiedBy: id },
+                } : state.stations,
             };
         }
-        // Future action handling will be implemented here.
+
+        case KitchenEventType.MOVE_TO_STATION: {
+            const person = getPerson(state, action.payload.personId);
+            if (!person) return state;
+            const oldStation = state.stations[person.station];
+            const newStation = state.stations[action.payload.stationName];
+            if (!newStation) {
+                console.log(`Station ${action.payload.stationName} not found`);
+                return state;
+            }
+            const updatedPeople = {
+                ...state.people,
+                [action.payload.personId]: { ...person, station: action.payload.stationName },
+            };
+            const updatedStations = {
+                ...state.stations,
+                [action.payload.stationName]: { ...newStation, occupiedBy: action.payload.personId },
+            };
+            if (oldStation) {
+                updatedStations[oldStation.name] = { ...oldStation, occupiedBy: null };
+            }
+            return { ...state, people: updatedPeople, stations: updatedStations };
+        }
+
+        case KitchenEventType.GET_ITEM: {
+            return transactState(state, action.payload.itemId, action.payload.qty, action.payload.fromPersonId);
+        }
+
+        case KitchenEventType.PUT_ITEM: {
+            return transactState(state, action.payload.itemId, -action.payload.qty, action.payload.fromPersonId);
+        }
+
+        case KitchenEventType.STATION_OP: {
+            const station = state.stations[action.payload.stationName];
+            if (!station || !station.operations) {
+                console.log(`Station ${action.payload.stationName} or its operations not found`);
+                return state;
+            }
+            const operation = station.operations.find((op: any) => op.name === action.payload.operationName);
+            if (!operation) {
+                console.log(`Operation ${action.payload.operationName} not found at station ${action.payload.stationName}`);
+                return state;
+            }
+            const consumeItem = state.items[operation.consumeId];
+            const provideItem = state.items[operation.provideId];
+            const consumeQty = operation.consumeQty !== undefined ? operation.consumeQty : 1;
+            const provideQty = operation.provideQty !== undefined ? operation.provideQty : 1;
+            let updatedInventory = updateInventory(station.inventory, consumeItem, -consumeQty);
+            updatedInventory = updateInventory(updatedInventory, provideItem, provideQty);
+            return updateStationInventory(state, station, updatedInventory);
+        }
+
         default:
             return state;
     }
