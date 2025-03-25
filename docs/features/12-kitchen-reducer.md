@@ -192,3 +192,25 @@ function kitchenReducer(state, action) {
 - Confirm that GET_ITEM properly transfers an item from station inventory to a player's inventory.
 - Confirm that PUT_ITEM properly transfers an item from a player’s inventory back to the station.
 - Ensure that STATION_OP correctly updates the station's inventory according to the operation performed.
+
+## Questions
+
+1. **PLAYER_JOIN Action:**  
+   - **Q:** Should we update the new player's state with station assignment?  
+   - **A:** Yes, update the player state as appropriate. For now, the player will only have `id` and `name`.
+
+2. **MOVE_TO_STATION Action:**  
+   - **Q:** Is a payload with `{ personId, stationName }` acceptable?  
+   - **A:** Yes, that's a good payload; the reducer should clear the previous station's `occupiedBy` and assign the new station.
+
+3. **GET_ITEM and PUT_ITEM Actions:**  
+   - **Q:** What should the payloads include?  
+   - **A:** For GET_ITEM, include `fromPersonId`, `itemId`, and `qty` in the payload. For PUT_ITEM, include `itemId`, `fromPersonId`, and a positive `qty` (which will be negated in the reducer). These payloads should be formally declared and strongly typed with accompanying comments.
+
+4. **STATION_OP Action:**  
+   - **Q:** How should the station op action work?  
+   - **A:** Include the operation's name in the payload; the reducer will locate the corresponding operation details (which include the quantities) and process the transaction accordingly.
+
+5. **Action Type Enum:**  
+   - **Q:** Should we create an enum for all actions?  
+   - **A:** Yes, let's create an enum to strongly type all the actions.
