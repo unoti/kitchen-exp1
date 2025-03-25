@@ -1,5 +1,18 @@
 .station {
-  border: 1px solid #ccc;
+  position: absolute;  /* Allows precise positioning within the relative container */
+  width: var(--station-width);
+  height: var(--station-height);
+  border: 2px solid #333;
   padding: 10px;
   margin: 5px 0;
+  
+  /* Centering content within station */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .station-name {
+    margin-top: 0;
+  }
 }

@@ -10,11 +10,12 @@ interface StationProps {
     holdTypes: string[];
   };
   items: ItemMap;
+  style?: React.CSSProperties; // Added style prop
 }
 
-const Station: React.FC<StationProps> = ({ state, items }) => {
+const Station: React.FC<StationProps> = ({ state, items, style }) => {
   return (
-    <div className="station">
+    <div className="station" style={style}> {/* Apply style prop */}
       <h4 className="station-name">{state.name}</h4>
       <div className="station-inventory">
         <ul>

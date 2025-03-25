@@ -1,0 +1,16 @@
+:root {
+  --station-width: 200px;
+  --station-height: 140px;
+  --station-gap: 50px;
+  --stations-per-row: 4;
+  --row-gap: 100px;
+}
+
+.kitchen-container {
+  position: relative;  /* CRITICAL: This makes absolute children position relative to this container */
+  width: calc((var(--station-width) * var(--stations-per-row)) + (var(--station-gap) * (var(--stations-per-row) - 1)));
+  height: auto;        /* Height will accommodate all rows */
+  border: 1px solid #ccc;  /* Optional: visual boundary */
+  margin: 0 auto;      /* Center the container */
+  padding-bottom: 150px; /* Extra space at the bottom for chefs */
+}
