@@ -11,11 +11,10 @@ const Kitchen: React.FC<KitchenProps> = ({ kitchenState }) => {
   return (
     <div>
       <h2>The Kitchen</h2>
-      <p>This is where the magic happens! Explore the stations and start cooking.</p>
       <div className="stations">
         <h3>Stations</h3>
         {Object.values(kitchenState.stations).map(station => (
-          <Station state={station} key={station.name} />
+          <Station state={station} items={kitchenState.items} key={station.name} />
         ))}
       </div>
       <div className="players">
