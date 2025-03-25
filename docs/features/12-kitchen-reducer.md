@@ -168,3 +168,27 @@ function kitchenReducer(state, action) {
     }
 }
 ```
+## Observations and Next Steps
+
+**Observations:**
+- The legacy helper functions (`deleteKey`, `updateInventory`, `transactInventory`, `getPerson`, and `updateStationInventory`) offer a clear, immutable approach to state updates. We can reuse these patterns.
+- The legacy PLAYER_JOINED action auto-assigns a player to the first unoccupied station. We can adapt this to our current state representation.
+- Additional actions (MOVE_TO_STATION, GET_ITEM, PUT_ITEM, STATION_OP) are well defined in the legacy code, but need to be integrated with our current KitchenState structure and event types.
+- Logging and state management practices shown in the legacy code can guide our adapter design, ensuring maintainability and consistency.
+
+**Tasks:**
+1. Integrate and refactor legacy helper functions into the new backend state management.
+2. Adapt the PLAYER_JOIN action to assign players automatically to the first unoccupied station.
+3. Implement the MOVE_TO_STATION action to update player location and station occupancy correctly.
+4. Implement GET_ITEM and PUT_ITEM actions for proper inventory transactions.
+5. Implement the STATION_OP action to perform station-specific operations and update inventories.
+6. Consolidate state update patterns and remove any redundant code.
+
+**Unit Test Scenarios:**
+- Verify that `initialKitchenState` initializes with the correct keys and expected station assignments.
+- Confirm that an unknown action returns the unchanged state.
+- Test that PLAYER_JOIN adds a player and assigns them to an unoccupied station.
+- Validate that MOVE_TO_STATION correctly updates a player's station and the occupancy of both the old and new stations.
+- Confirm that GET_ITEM properly transfers an item from station inventory to a player's inventory.
+- Confirm that PUT_ITEM properly transfers an item from a player’s inventory back to the station.
+- Ensure that STATION_OP correctly updates the station's inventory according to the operation performed.
