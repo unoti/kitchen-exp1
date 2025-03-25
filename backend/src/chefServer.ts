@@ -25,10 +25,12 @@ if (require.main === module) {
   let kitchenState = initialKitchenState;
   const httpServer = http.createServer(app);
   const wss = new WebSocketServer({ server: httpServer, path: '/game' });
+  const clients = new Set<PlayerWebsocket>();
 
   wss.on('connection', (ws, req) => {
     const playerWs = ws as PlayerWebsocket;
     console.log('New WebSocket connection:', req.url, "player id:", playerWs.playerId);
+    clients.add(playerWs);
 
     playerWs.on('message', (message) => {
       console.log('Received WebSocket message from player', playerWs.playerId, ":", message.toString());
@@ -48,10 +50,18 @@ if (require.main === module) {
         type: "STATE_UPDATE",
         payload: { state: kitchenState }
       };
-      playerWs.send(JSON.stringify(stateUpdate));
+      clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify(stateUpdate));
+        }
+      });
     });
 
     playerWs.send('Welcome to the Chef WebSocket server!');
+    playerWs.on('close', () => {
+      console.log('WebSocket client disconnected:', playerWs.playerId);
+      clients.delete(playerWs);
+    });
   });
 
   
