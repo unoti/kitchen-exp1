@@ -127,14 +127,16 @@ export type KitchenAction = {
 
 export function kitchenReducer(state: KitchenState = initialKitchenState, action: KitchenAction): KitchenState {
     switch (action.type) {
-        case KitchenEventType.PLAYER_JOIN:
+        case KitchenEventType.PLAYER_JOIN: {
+            const id = "player-" + new Date().getTime();
             return {
                 ...state,
                 people: {
                     ...state.people,
-                    [action.payload.id]: action.payload,
+                    [id]: { id, name: action.payload.name },
                 },
             };
+        }
         // Future action handling will be implemented here.
         default:
             return state;
