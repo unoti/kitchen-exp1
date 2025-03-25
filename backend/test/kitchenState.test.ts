@@ -1,4 +1,5 @@
 import { initialKitchenState, kitchenReducer, ITEM_IDS, KitchenState, KitchenAction } from "../src/kitchenState";
+import { KitchenEventType } from "../../shared/models/events";
 
 describe("Kitchen State", () => {
   it("should initialize with correct state", () => {
@@ -9,12 +10,12 @@ describe("Kitchen State", () => {
   });
 
   it("should return the same state for unknown actions", () => {
-    const newState = kitchenReducer(initialKitchenState, { type: "UNKNOWN" });
+    const newState = kitchenReducer(initialKitchenState, { type: "UNKNOWN" } as any);
     expect(newState).toEqual(initialKitchenState);
   });
 
   it("should handle PLAYER_JOIN event", () => {
-    const action = { type: "PLAYER_JOIN", payload: { name: "Alice" } };
+    const action = { type: KitchenEventType.PLAYER_JOIN, payload: { name: "Alice" } };
     const newState = kitchenReducer(initialKitchenState, action);
     const keys = Object.keys(newState.people);
     expect(keys.length).toBe(1);
@@ -23,30 +24,30 @@ describe("Kitchen State", () => {
     expect(newState.stations["Shelf"].occupiedBy).toBe(keys[0]);
   });
   it("should handle MOVE_TO_STATION event", () => {
-    const joinAction = { type: "PLAYER_JOIN", payload: { name: "Bob" } };
+    const joinAction = { type: KitchenEventType.PLAYER_JOIN, payload: { name: "Bob" } };
     let state = kitchenReducer(initialKitchenState, joinAction);
     const playerId = Object.keys(state.people)[0];
-    const moveAction = { type: "MOVE_TO_STATION", payload: { personId: playerId, stationName: "Fridge" } };
+    const moveAction = { type: KitchenEventType.MOVE_TO_STATION, payload: { personId: playerId, stationName: "Fridge" } };
     state = kitchenReducer(state, moveAction);
     expect(state.people[playerId].station).toBe("Fridge");
     expect(state.stations["Fridge"].occupiedBy).toBe(playerId);
   });
 
   it("should handle GET_ITEM event", () => {
-    const joinAction = { type: "PLAYER_JOIN", payload: { name: "Carol" } };
+    const joinAction = { type: KitchenEventType.PLAYER_JOIN, payload: { name: "Carol" } };
     let state = kitchenReducer(initialKitchenState, joinAction);
     const playerId = Object.keys(state.people)[0];
-    state = kitchenReducer(state, { type: "GET_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.SUGAR, qty: 1 } });
+    state = kitchenReducer(state, { type: KitchenEventType.GET_ITEM, payload: { fromPersonId: playerId, itemId: ITEM_IDS.SUGAR, qty: 1 } });
     expect(state.people[playerId].inventory[ITEM_IDS.SUGAR]).toBe(1);
     expect(state.stations["Shelf"].inventory[ITEM_IDS.SUGAR]).toBe(9999);
   });
 
   it("should handle PUT_ITEM event", () => {
-    const joinAction = { type: "PLAYER_JOIN", payload: { name: "Dave" } };
+    const joinAction = { type: KitchenEventType.PLAYER_JOIN, payload: { name: "Dave" } };
     let state = kitchenReducer(initialKitchenState, joinAction);
     const playerId = Object.keys(state.people)[0];
     state.people[playerId].inventory = { [ITEM_IDS.BOWL]: 5 };
-    const putItemAction = { type: "PUT_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.BOWL, qty: 2 } };
+    const putItemAction = { type: KitchenEventType.PUT_ITEM, payload: { fromPersonId: playerId, itemId: ITEM_IDS.BOWL, qty: 2 } };
     state = kitchenReducer(state, putItemAction);
 
     expect(state.people[playerId].inventory[ITEM_IDS.BOWL]).toBe(3);
@@ -70,7 +71,7 @@ describe("Kitchen State", () => {
     state = doAction(state, { type: "GET_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.LIME, qty: 1 } });
     state = doAction(state, { type: "MOVE_TO_STATION", payload: { personId: playerId, stationName: "CuttingBoard" } });
     state = doAction(state, { type: "PUT_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.LIME, qty: 1} });
-    state = doAction(state, { type: "STATION_OP", payload: { stationName: "CuttingBoard", operationName: "Cut Lime" } });
+    state = doAction(state, { type: KitchenEventType.STATION_OP, payload: { stationName: "CuttingBoard", operationName: "Cut Lime" } });
     expect(state.stations['CuttingBoard'].inventory[ITEM_IDS.HALF_LIME]).toBe(2);
   });
 });
