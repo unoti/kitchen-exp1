@@ -30,6 +30,21 @@ if (require.main === module) {
 
     playerWs.on('message', (message) => {
       console.log('Received WebSocket message from player', playerWs.playerId, ":", message.toString());
+      let parsedMessage;
+      try {
+          parsedMessage = JSON.parse(message.toString());
+      } catch (error) {
+          console.error("Error parsing message:", error);
+          return;
+      }
+      switch(parsedMessage.type) {
+          case "PLAYER_JOIN":
+              // Handle player join event
+              console.log("Handling PLAYER_JOIN event", parsedMessage);
+              break;
+          default:
+              console.warn("Unknown event type:", parsedMessage.type);
+      }
     });
 
     playerWs.send('Welcome to the Chef WebSocket server!');
