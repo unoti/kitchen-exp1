@@ -1,5 +1,5 @@
 import { Player } from '../../../shared/models/Player';
-import { KitchenEventType } from '../../../shared/models/events';
+import { KitchenEvent, KitchenEventType } from '../../../shared/models/events';
 
 class GameConnection {
   public onEvent?: (event: any) => void;
@@ -55,6 +55,20 @@ class GameConnection {
       this.ws!.addEventListener("open", sendJoin, { once: true });
     } else {
       console.error("WebSocket is in an unexpected state:", this.ws!.readyState);
+    }
+  }
+
+  // Add the send method to handle sending events to the server
+  send(event: KitchenEvent) {
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      console.error("Cannot send event: WebSocket is not connected");
+      return;
+    }
+    
+    try {
+      this.ws.send(JSON.stringify(event));
+    } catch (error) {
+      console.error("Error sending event:", error);
     }
   }
 

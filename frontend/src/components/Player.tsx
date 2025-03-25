@@ -14,7 +14,6 @@ const Player: React.FC<PlayerProps> = ({ state, style }) => {
   return (
     <div className="player" style={style}> {/* Apply style prop */}
       <h4>{state.name || 'Unnamed Player'}</h4>
-      <p>ID: {state.id}</p>
     </div>
   );
 };
