@@ -44,6 +44,14 @@ if (require.main === module) {
           playerWs.playerId = kitchenState.lastPlayerId.toString();
       }
       console.log("Updated kitchen state:", kitchenState);
+      const stateUpdate = {
+        type: "STATE_UPDATE",
+        payload: { state: kitchenState }
+      };
+      playerWs.send(JSON.stringify(stateUpdate));
+      if (!playerWs.playerId) {
+        playerWs.playerId = kitchenState.lastPlayerId.toString();
+      }
     });
 
     playerWs.send('Welcome to the Chef WebSocket server!');
