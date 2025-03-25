@@ -57,7 +57,6 @@ if (require.main === module) {
       });
     });
 
-    playerWs.send('Welcome to the Chef WebSocket server!');
     playerWs.on('close', () => {
       console.log('WebSocket client disconnected:', playerWs.playerId);
       clients.delete(playerWs);
