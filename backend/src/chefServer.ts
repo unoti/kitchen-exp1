@@ -3,6 +3,7 @@ import cors from 'cors';
 import http from 'http';
 import { Request, Response } from 'express';
 import { WebSocketServer, WebSocket } from 'ws';
+import { kitchenReducer, initialKitchenState } from "./kitchenState";
 
 interface PlayerWebsocket extends WebSocket {
   playerId?: string;
@@ -21,6 +22,7 @@ app.get('/status', (req: Request, res: Response) => {
 
 if (require.main === module) {
   console.log("Starting Chef Backend...");
+  let kitchenState = initialKitchenState;
   const httpServer = http.createServer(app);
   const wss = new WebSocketServer({ server: httpServer, path: '/game' });
 
@@ -37,14 +39,11 @@ if (require.main === module) {
           console.error("Error parsing message:", error);
           return;
       }
-      switch(parsedMessage.type) {
-          case "PLAYER_JOIN":
-              // Handle player join event
-              console.log("Handling PLAYER_JOIN event", parsedMessage);
-              break;
-          default:
-              console.warn("Unknown event type:", parsedMessage.type);
+      kitchenState = kitchenReducer(kitchenState, parsedMessage);
+      if (parsedMessage.type === "PLAYER_JOIN") {
+          playerWs.playerId = kitchenState.lastPlayerId.toString();
       }
+      console.log("Updated kitchen state:", kitchenState);
     });
 
     playerWs.send('Welcome to the Chef WebSocket server!');
