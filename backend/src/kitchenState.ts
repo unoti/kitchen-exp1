@@ -122,10 +122,13 @@ export const initialKitchenState: KitchenState = {
     }
 };
 
-export type KitchenAction = {
-    type: string;
-    payload?: any;
-};
+export type KitchenAction =
+  | { type: typeof KitchenEventType.PLAYER_JOIN; payload: { name: string } }
+  | { type: typeof KitchenEventType.MOVE_TO_STATION; payload: { personId: string; stationName: string } }
+  | { type: typeof KitchenEventType.GET_ITEM; payload: { fromPersonId: string; itemId: number; qty: number } }
+  | { type: typeof KitchenEventType.PUT_ITEM; payload: { fromPersonId: string; itemId: number; qty: number } }
+  | { type: typeof KitchenEventType.STATION_OP; payload: { stationName: string; operationName: string } }
+  | { type: typeof KitchenEventType.STATE_UPDATE; payload: { state: KitchenState } };
 
 function deleteKey(o: any, key: string) {
     const { [key]: _removed, ...updatedItem } = o;
