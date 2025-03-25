@@ -33,11 +33,6 @@ For now, there are no scoring mechanics, timers, or winning conditions — the i
   - All authoritative game state lives on the **backend**, managed by a reducer.  
   - Clients receive state updates via WebSocket and render accordingly.  
   - Clients send player actions (like movement or inventory transfers) to the server.  
-- **Rooms:**  
-  - A simple lobby/landing page shows all active rooms.  
-  - If no room exists, a new one is created.  
-  - Players can join any room with available space.  
-  - Room timeout and cleanup logic is out of scope for the prototype.
 
 ---
 
@@ -105,11 +100,3 @@ cd backend && npm test
 ## Contributing
 
 Guidelines for contributing to the project.
-
-## License
-
-Information about the project's license.
-
-## Why react-scripts?
-
-We are using react-scripts as a convenient zero-config tool provided by Create React App. It abstracts away complex configurations (such as webpack and Babel), allowing us to focus on our application code. This simplifies development and testing until we need more control over the build process.
