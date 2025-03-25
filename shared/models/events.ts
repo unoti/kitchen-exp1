@@ -1,3 +1,4 @@
+import { KitchenState } from "../../backend/src/kitchenState";
 
 export enum KitchenEventType {
     PLAYER_JOIN = "PLAYER_JOIN",
@@ -9,8 +10,7 @@ export interface PlayerJoinEvent {
     payload: { name: string };
 }
 
-import { KitchenState } from "../../backend/src/kitchenState";
-
+// This event is sent from the server when the state changes.
 export interface StateUpdateEvent {
     type: KitchenEventType.STATE_UPDATE;
     payload: { state: KitchenState };
