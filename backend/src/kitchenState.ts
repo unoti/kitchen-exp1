@@ -217,12 +217,15 @@ export function kitchenReducer(state: KitchenState = initialKitchenState, action
                 ...state.people,
                 [action.payload.personId]: { ...person, station: action.payload.stationName },
             };
-            const updatedStations = {
+            let updatedStations = {
                 ...state.stations,
                 [action.payload.stationName]: { ...newStation, occupiedBy: action.payload.personId },
             };
             if (oldStation) {
-                updatedStations[oldStation.name] = { ...oldStation, occupiedBy: null };
+                updatedStations = {
+                    ...updatedStations,
+                    [oldStation.name]: { ...oldStation, occupiedBy: null },
+                };
             }
             return { ...state, people: updatedPeople, stations: updatedStations };
         }
@@ -250,9 +253,11 @@ export function kitchenReducer(state: KitchenState = initialKitchenState, action
             const provideItem = state.items[operation.provideId];
             const consumeQty = operation.consumeQty !== undefined ? operation.consumeQty : 1;
             const provideQty = operation.provideQty !== undefined ? operation.provideQty : 1;
-            let updatedInventory = updateInventory(station.inventory, consumeItem, -consumeQty);
-            updatedInventory = updateInventory(updatedInventory, provideItem, provideQty);
-            return updateStationInventory(state, station, updatedInventory);
+            const afterConsumeInv = updateInventory(station.inventory, consumeItem, -consumeQty);
+            const afterProvideInv = updateInventory(afterConsumeInv, provideItem, provideQty);
+
+            const newState  = updateStationInventory(state, station, afterProvideInv);
+            return newState;
         }
 
         default:

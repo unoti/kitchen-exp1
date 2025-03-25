@@ -1,4 +1,4 @@
-import { initialKitchenState, kitchenReducer, ITEM_IDS } from "../src/kitchenState";
+import { initialKitchenState, kitchenReducer, ITEM_IDS, KitchenState, KitchenAction } from "../src/kitchenState";
 
 describe("Kitchen State", () => {
   it("should initialize with correct state", () => {
@@ -45,23 +45,32 @@ describe("Kitchen State", () => {
     const joinAction = { type: "PLAYER_JOIN", payload: { name: "Dave" } };
     let state = kitchenReducer(initialKitchenState, joinAction);
     const playerId = Object.keys(state.people)[0];
-    state.people[playerId].inventory = { [ITEM_IDS.BOWL]: 2 };
-    const putItemAction = { type: "PUT_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.BOWL, qty: 1 } };
+    state.people[playerId].inventory = { [ITEM_IDS.BOWL]: 5 };
+    const putItemAction = { type: "PUT_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.BOWL, qty: 2 } };
     state = kitchenReducer(state, putItemAction);
-    expect(state.people[playerId].inventory[ITEM_IDS.BOWL]).toBe(1);
+
+    expect(state.people[playerId].inventory[ITEM_IDS.BOWL]).toBe(3);
     const stationName = state.people[playerId].station;
     expect(state.stations[stationName].inventory[ITEM_IDS.BOWL]).toBe(2);
   });
 
-  it("should perform the 'Cut Lime' operation integration test", () => {
+  it("should perform the 'Cut Lime' operation successfully", () => {
     let state = kitchenReducer(initialKitchenState, { type: "PLAYER_JOIN", payload: { name: "Eve" } });
     const playerId = Object.keys(state.people)[0];
-    state = kitchenReducer(state, { type: "MOVE_TO_STATION", payload: { personId: playerId, stationName: "Utensils" } });
-    state = kitchenReducer(state, { type: "GET_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.KNIFE, qty: 1 } });
-    state = kitchenReducer(state, { type: "MOVE_TO_STATION", payload: { personId: playerId, stationName: "Fridge" } });
-    state = kitchenReducer(state, { type: "GET_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.LIME, qty: 1 } });
-    state = kitchenReducer(state, { type: "MOVE_TO_STATION", payload: { personId: playerId, stationName: "CuttingBoard" } });
-    state = kitchenReducer(state, { type: "STATION_OP", payload: { stationName: "CuttingBoard", operationName: "Cut Lime" } });
-    expect(state.people[playerId].inventory[ITEM_IDS.HALF_LIME]).toBe(2);
+
+    function doAction(state: KitchenState, action: KitchenAction): KitchenState {
+      const newState = kitchenReducer(state, action);
+      //console.log(`doAction:`, action, JSON.stringify(newState));
+      return newState;
+    }
+
+    state = doAction(state, { type: "MOVE_TO_STATION", payload: { personId: playerId, stationName: "Utensils" } });
+    state = doAction(state, { type: "GET_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.KNIFE, qty: 1 } });
+    state = doAction(state, { type: "MOVE_TO_STATION", payload: { personId: playerId, stationName: "Fridge" } });
+    state = doAction(state, { type: "GET_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.LIME, qty: 1 } });
+    state = doAction(state, { type: "MOVE_TO_STATION", payload: { personId: playerId, stationName: "CuttingBoard" } });
+    state = doAction(state, { type: "PUT_ITEM", payload: { fromPersonId: playerId, itemId: ITEM_IDS.LIME, qty: 1} });
+    state = doAction(state, { type: "STATION_OP", payload: { stationName: "CuttingBoard", operationName: "Cut Lime" } });
+    expect(state.stations['CuttingBoard'].inventory[ITEM_IDS.HALF_LIME]).toBe(2);
   });
 });

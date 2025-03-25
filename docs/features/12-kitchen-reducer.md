@@ -192,7 +192,14 @@ function kitchenReducer(state, action) {
 - Confirm that GET_ITEM properly transfers an item from station inventory to a player's inventory.
 - Confirm that PUT_ITEM properly transfers an item from a player’s inventory back to the station.
 - Ensure that STATION_OP correctly updates the station's inventory according to the operation performed.
-- Create an integration test for the "Cut Lime" operation: join a player, move them to 'Utensils' to pick up a knife, then move to 'Fridge' to get a lime, next move to 'CuttingBoard' and perform the "Cut Lime" operation; finally, assert that the player's inventory contains exactly two Half Lime items.
+- Create a test for the "Cut Lime" operation, which is a multi step process:
+    - join a player
+    - move them to 'Utensils' to pick up a knife
+    - move to 'Fridge' to get a lime
+    - move to 'CuttingBoard'
+    - put a lime into the cutting board
+    - perform the "Cut Lime" operation
+    - finally, assert that the cutting board station inventory now contains exactly two Half Lime items.
 
 ## Questions
 
