@@ -42,6 +42,7 @@ export interface Operation {
 export interface KitchenState {
     items: { [id: number]: Item }; // Definitions of items that can exist in the kitchen.
     people: { [playerId: string]: any }; // Players that are in the kitchen.
+    lastPlayerId: number;
     stations: {
        [stationName: string]: {
          name: string; // Name of the station. This is also the key in the stations map.
@@ -65,6 +66,7 @@ export const initialKitchenState: KitchenState = {
         [ITEM_IDS.LIME_JUICE]: { id: ITEM_IDS.LIME_JUICE, name: 'Lime Juice', type: ItemTypes.ingredient, uom: 'volume' },
     },
     people: {},
+    lastPlayerId: 0,
     stations: {
         'Shelf': {
             name: "Shelf",
@@ -127,14 +129,18 @@ export type KitchenAction = {
 
 export function kitchenReducer(state: KitchenState = initialKitchenState, action: KitchenAction): KitchenState {
     switch (action.type) {
-        case KitchenEventType.PLAYER_JOIN:
+        case KitchenEventType.PLAYER_JOIN: {
+            const newId = state.lastPlayerId + 1;
+            const id = newId.toString();
             return {
                 ...state,
+                lastPlayerId: newId,
                 people: {
                     ...state.people,
-                    [action.payload.id]: action.payload,
+                    [id]: { id, name: action.payload.name },
                 },
             };
+        }
         // Future action handling will be implemented here.
         default:
             return state;

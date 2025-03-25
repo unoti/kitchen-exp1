@@ -14,9 +14,11 @@ describe("Kitchen State", () => {
   });
 
   it("should handle PLAYER_JOIN event", () => {
-    const player = { id: "player1", name: "Alice" };
-    const action = { type: "PLAYER_JOIN", payload: player };
+    const action = { type: "PLAYER_JOIN", payload: { name: "Alice" } };
     const newState = kitchenReducer(initialKitchenState, action);
-    expect(newState.people).toHaveProperty("player1", player);
+    const keys = Object.keys(newState.people);
+    expect(keys.length).toBe(1);
+    const player = newState.people[keys[0]];
+    expect(player).toEqual({ id: keys[0], name: "Alice" });
   });
 });

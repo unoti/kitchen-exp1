@@ -5,18 +5,16 @@ import { Player } from '../../shared/models/Player';
 import useGameConnection from '../hooks/useGameConnection';
 
 const LandingPage: React.FC = () => {
-  const [player, setPlayer] = useState<Player>({id: "unknown", name: "Unoti"});
+  const [player, setPlayer] = useState<Player>({id: "unknown", name: ""});
   const connection = useGameConnection();
-  useEffect(() => {
-    if (connection && player) {
-      connection.connect(player);
-    }
-  }, [connection, player]);
 
   const handleProfileSave = async (name: string) => {
     const newPlayer = { ...player, name };
     console.log("Saving player profile:", newPlayer);
     setPlayer(newPlayer);
+    if (connection) {
+      connection.connect(newPlayer);
+    }
   };
   return (
     <div>
