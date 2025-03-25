@@ -13,6 +13,9 @@ const LandingPage: React.FC = () => {
     console.log("Saving player profile:", newPlayer);
     setPlayer(newPlayer);
     if (connection) {
+      connection.onEvent = (event: any) => {
+        console.log("Received event from server:", event);
+      };
       connection.connect(newPlayer);
     }
   };

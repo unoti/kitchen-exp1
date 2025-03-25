@@ -2,10 +2,13 @@ import { Player } from '../../../shared/models/Player';
 import { KitchenEventType } from '../../../shared/models/events';
 
 class GameConnection {
+  public onEvent?: (event: any) => void;
   private ws: WebSocket | null = null;
   private joined: boolean = false; // Flag to ensure join event is only sent once
 
-  constructor() {}
+  constructor(onEvent?: (event: any) => void) {
+    this.onEvent = onEvent;
+  }
 
   connect(player: Player) {
     // If we've already connected and sent the join event, do nothing.
@@ -23,7 +26,16 @@ class GameConnection {
          console.error("WebSocket error:", e);
       };
       this.ws.onmessage = (message) => {
-         console.log("WebSocket message received:", message.data);
+         try {
+           const parsedEvent = JSON.parse(message.data);
+           if (this.onEvent) {
+             this.onEvent(parsedEvent);
+           } else {
+             console.log("WebSocket message received:", parsedEvent);
+           }
+         } catch (error) {
+           console.error("Error parsing websocket message:", error);
+         }
       };
     }
 
