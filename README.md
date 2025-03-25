@@ -6,7 +6,7 @@ The goal of this project is to prototype the gameplay loop of a shared cooking s
 
 We’re starting simple: no fancy graphics, just React components, fast iteration, and a shared backend state. The goal is to explore what makes the core loop fun before investing in visuals or polish.
 
-![Yes Chef Prototype screenshot](docs\img\chef-wip-screenshot.png)
+![Yes Chef Prototype screenshot](docs/img/chef-wip-screenshot.png)
 
 ---
 
