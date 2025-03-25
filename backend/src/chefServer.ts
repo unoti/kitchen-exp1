@@ -49,9 +49,6 @@ if (require.main === module) {
         payload: { state: kitchenState }
       };
       playerWs.send(JSON.stringify(stateUpdate));
-      if (!playerWs.playerId) {
-        playerWs.playerId = kitchenState.lastPlayerId.toString();
-      }
     });
 
     playerWs.send('Welcome to the Chef WebSocket server!');
